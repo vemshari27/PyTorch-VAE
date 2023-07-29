@@ -4,7 +4,7 @@ import argparse
 import numpy as np
 from pathlib import Path
 from models import *
-from experiment import VAEXperiment
+from experiment import VAEXperiment, CustomVAEXperiment
 import torch.backends.cudnn as cudnn
 from pytorch_lightning import Trainer
 from pytorch_lightning.loggers import TensorBoardLogger
@@ -35,7 +35,7 @@ tb_logger =  TensorBoardLogger(save_dir=config['logging_params']['save_dir'],
 # For reproducibility
 seed_everything(config['exp_params']['manual_seed'], True)
 
-model = vae_models[config['model_params']['name']](**config['model_params'])
+model = vae_models[config['model_params']['name']](**config['model_params']['params'])
 experiment = VAEXperiment(model,
                           config['exp_params'])
 
@@ -50,7 +50,7 @@ runner = Trainer(logger=tb_logger,
                                      monitor= "val_loss",
                                      save_last= True),
                  ],
-                 strategy=DDPPlugin(find_unused_parameters=False),
+                #  strategy=DDPPlugin(find_unused_parameters=False),
                  **config['trainer_params'])
 
 

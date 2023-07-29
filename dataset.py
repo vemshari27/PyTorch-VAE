@@ -127,12 +127,12 @@ class VAEDataset(LightningDataModule):
 #       =========================  CelebA Dataset  =========================
     
         train_transforms = transforms.Compose([transforms.RandomHorizontalFlip(),
-                                              transforms.CenterCrop(148),
+                                            #   transforms.CenterCrop(148),
                                               transforms.Resize(self.patch_size),
                                               transforms.ToTensor(),])
         
         val_transforms = transforms.Compose([transforms.RandomHorizontalFlip(),
-                                            transforms.CenterCrop(148),
+                                            # transforms.CenterCrop(148),
                                             transforms.Resize(self.patch_size),
                                             transforms.ToTensor(),])
         

@@ -1,0 +1,48 @@
+model_params:
+  name: 'VanillaVAE'
+  base_learning_rate: 4.5e-6
+  params:
+    monitor: "val/rec_loss"
+    embed_dim: 3
+    lossconfig:
+      params:
+        disc_start: 50001
+        kl_weight: 0.000001
+        disc_weight: 0.5
+
+    ddconfig:
+      double_z: True
+      z_channels: 3
+      resolution: 256
+      in_channels: 3
+      out_ch: 3
+      ch: 128
+      ch_mult: [ 1,2,4 ]  # num_down = len(ch_mult)-1
+      num_res_blocks: 2
+      attn_resolutions: [ ]
+      dropout: 0.0
+
+
+data_params:
+  data_path: "/content/drive/MyDrive/WaistbandComix/data/"
+  train_batch_size: 4
+  val_batch_size:  4
+  patch_size: 64
+  # num_workers: 4
+
+
+exp_params:
+  LR: 0.005
+  weight_decay: 0.0
+  scheduler_gamma: 0.95
+  kld_weight: 0.00025
+  manual_seed: 1265
+
+trainer_params:
+  gpus: [0]
+  max_epochs: 100
+
+logging_params:
+  save_dir: "logs/"
+  name: "VanillaVAE"
+  
